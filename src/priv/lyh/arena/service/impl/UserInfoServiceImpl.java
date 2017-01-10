@@ -1,35 +1,28 @@
 package priv.lyh.arena.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import priv.lyh.arena.dao.UserInfoDao;
-import priv.lyh.arena.entity.ReturnInfo;
+
 import priv.lyh.arena.entity.UserInfo;
 import priv.lyh.arena.entity.UserLogin;
 import priv.lyh.arena.exception.ServiceException;
 import priv.lyh.arena.util.*;
 import priv.lyh.arena.service.UserInfoService;
 
-import java.io.Serializable;
-import java.util.List;
-
 
 @Service
 @Transactional
+@Scope("prototype")
 public class UserInfoServiceImpl implements UserInfoService {
 
     private UserInfoDao userInfoDao;
-    private ReturnInfo returnInfo;
 
     @Autowired
     public void setUserInfoDao(UserInfoDao userInfoDao) {
         this.userInfoDao = userInfoDao;
-    }
-
-    @Autowired
-    public void setReturnInfo(ReturnInfo returnInfo) {
-        this.returnInfo = returnInfo;
     }
 
     @Override
@@ -58,11 +51,11 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public String addUserInfoService(UserInfo userInfo) throws ServiceException {
-        try{
+        try {
             userInfo.setAddTime(new java.sql.Timestamp(System.currentTimeMillis()));
             userInfoDao.addUserInfo(userInfo);
             return userInfo.getId();
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new ServiceException("Add fail...");
         }
     }
@@ -73,7 +66,7 @@ public class UserInfoServiceImpl implements UserInfoService {
             userInfo.setAddTime(new java.sql.Timestamp(System.currentTimeMillis()));
             userInfoDao.updateUserInfo(userInfo);
             return userInfo.getId();
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new ServiceException("Update fail...");
         }
     }

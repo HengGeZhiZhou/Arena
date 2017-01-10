@@ -15,6 +15,7 @@ import priv.lyh.arena.service.UserInfoService;
 import test.dao.TestDao;
 import test.service.TestService;
 import priv.lyh.arena.util.ResultCode;
+import test.service.impl.TestServiceImpl;
 
 
 import javax.annotation.Resource;
@@ -74,23 +75,27 @@ public class Test {
     @org.junit.Test
     public  void TestMap(){
         ReturnInfo returnInfo=new ReturnInfo();
-        returnInfo.setStatus(ResultCode.loginFail);
+//        returnInfo.setStatus(ResultCode.loginFail);
         returnInfo.setObj("123123123");
         Gson gson=new Gson();
         String a=gson.toJson(returnInfo);
         System.out.println(a);
         ReturnInfo returnInfo1=gson.fromJson(a,ReturnInfo.class);
-        Map<Integer,String> map=returnInfo1.getStatus();
-        System.out.println(map.keySet());
-        System.out.println(map.values());
+//        Map<Integer,String> map=returnInfo1.getStatus();
+//        System.out.println(map.keySet());
+//        System.out.println(map.values());
     }
 
 
 
     @org.junit.Test
     public void testSpring(){
-        ctx=new ClassPathXmlApplicationContext("classpath:test/conf/test-spring.xml");
-        TestService ts=(TestService)ctx.getBean("testService");
+        ctx=new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+        TestServiceImpl ts= (TestServiceImpl) ctx.getBean("testService");
+        TestServiceImpl ts1= (TestServiceImpl) ctx.getBean("testService");
+        System.out.println(ts.equals(ts1));
+        System.out.println(ts.testDao.equals(ts1.testDao));
+        ts1.say();
         ts.say();
     }
 
@@ -111,5 +116,11 @@ public class Test {
         log.error("error 级别日志");
         log.fatal("fatal 级别日志");
     }
+
+    @org.junit.Test
+    public void testGsonUtil(){
+
+    }
+
 
 }

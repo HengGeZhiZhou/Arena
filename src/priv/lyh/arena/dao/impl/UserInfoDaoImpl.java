@@ -1,6 +1,7 @@
 package priv.lyh.arena.dao.impl;
 
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 import priv.lyh.arena.dao.UserInfoDao;
 import priv.lyh.arena.entity.UserInfo;
@@ -12,6 +13,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Repository
+@Scope("prototype")
 public class UserInfoDaoImpl extends BaseDaoImpl<UserLogin> implements UserInfoDao {
 
 

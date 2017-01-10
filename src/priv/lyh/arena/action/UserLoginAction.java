@@ -2,16 +2,21 @@ package priv.lyh.arena.action;
 
 import com.google.gson.Gson;
 
-import org.junit.Before;
+import com.google.gson.GsonBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import priv.lyh.arena.entity.ReturnInfo;
 import priv.lyh.arena.entity.UserLogin;
+import priv.lyh.arena.exception.RequestException;
+import priv.lyh.arena.exception.ServiceException;
 import priv.lyh.arena.service.UserInfoService;
+import priv.lyh.arena.util.ReadRequestMessage;
 import priv.lyh.arena.util.ResultCode;
 
 import javax.annotation.Resource;
-import java.io.BufferedReader;
+
+import static priv.lyh.arena.util.ResultCode.*;
 
 
 @Component("userLogin")
@@ -21,12 +26,13 @@ public class UserLoginAction extends BaseAction {
     private UserInfoService userInfoService;
     private ReturnInfo returnInfo;
 
-    public ReturnInfo getReturnInfo() {
-        return returnInfo;
-    }
-
+    @Autowired
     public void setReturnInfo(ReturnInfo returnInfo) {
         this.returnInfo = returnInfo;
+    }
+
+    public ReturnInfo getReturnInfo() {
+        return returnInfo;
     }
 
     @Resource
@@ -35,21 +41,30 @@ public class UserLoginAction extends BaseAction {
     }
 
 
-    public String register() throws Exception {
-        Gson gson = new Gson();
-        this.response.setContentType("text/html;charset=utf-8");
-        this.response.setCharacterEncoding("UTF-8");
-        StringBuffer json = new StringBuffer();
-        String line = null;
-        BufferedReader reader = request.getReader();
-        while ((line = reader.readLine()) != null) {
-            json.append(line);
+    @SuppressWarnings("unchecked")
+    public String register() throws RequestException, ServiceException {
+        try {
+            UserLogin userLogin =ReadRequestMessage.read(this.request,this.response,UserLogin.class);
+            String id = userInfoService.registerService(userLogin);
+            returnInfo.setCode(REQUEST_SUCCESS);
+            returnInfo.setMsg(REQUEST_SUCCESS_MSG);
+            returnInfo.setObj(id);
+        } catch (RequestException e) {
+            returnInfo.setCode(SEND_FAIL);
+            returnInfo.setMsg(SEND_FAIL_MSG);
+            throw new RequestException(SEND_FAIL_MSG);
+        } catch (Exception e) {
+            returnInfo.setCode(REGISTER_FAIL);
+            returnInfo.setMsg(REGISTER_FAIL_MSG);
+            throw new ServiceException(REGISTER_FAIL_MSG);
         }
-        Gson gson1 = new Gson();
-        UserLogin userLogin = gson1.fromJson(json.toString(), UserLogin.class);
-        System.out.println(userInfoService.registerService(userLogin));
-        returnInfo.setStatus(ResultCode.requestSuccess);
-        returnInfo.setObj(140000111);
-        return "success";
+        return "register";
     }
+
+//    @SuppressWarnings("unchecked")
+//    public String loginCheck(){
+//
+//    }
+
+
 }

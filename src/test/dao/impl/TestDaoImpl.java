@@ -1,6 +1,7 @@
 package test.dao.impl;
 
 import org.hibernate.SessionFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 import priv.lyh.arena.entity.UserLogin;
@@ -10,6 +11,7 @@ import javax.annotation.Resource;
 import java.io.Serializable;
 
 @Repository("lii")
+@Scope("prototype")
 public class TestDaoImpl extends HibernateDaoSupport implements TestDao {
 
     @Resource(name = "sessionFactory")

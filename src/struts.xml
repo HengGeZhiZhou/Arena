@@ -6,17 +6,18 @@
 
 <struts>
     <!-- 禁用动态方法访问 -->
-    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
     <!-- 配置成开发模式 -->
-    <constant name="struts.devMode" value="true" />
+    <constant name="struts.devMode" value="true"/>
     <!-- 配置拓展名为action -->
-    <constant name="struts.action.extention" value="action" />
+    <constant name="struts.action.extention" value="action"/>
     <include file="test/conf/test-struts.xml"/>
-
+    
     <package name="userLogin" namespace="/" extends="json-default,struts-default">
-
         <action name="user_*" class="userLogin" method="{1}">
-            <result name="success" type="json">
+            <exception-mapping exception="priv.lyh.arena.exception.ServiceException" result="register"/>
+            <exception-mapping exception="priv.lyh.arena.exception.RequestException" result="register"/>
+            <result name="register" type="json">
                 <param name="root">returnInfo</param>
             </result>
         </action>

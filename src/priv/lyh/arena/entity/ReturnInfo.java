@@ -8,15 +8,25 @@ import java.util.Map;
 
 @Component
 public class ReturnInfo<T> {
-    private Map<Integer,String> status;
+
+    private int code;
+    private String msg;
     private T obj;
 
-    public Map<Integer, String> getStatus() {
-        return status;
+    public int getCode() {
+        return code;
     }
 
-    public void setStatus(Map<Integer, String> status) {
-        this.status = status;
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public T getObj() {
@@ -30,7 +40,8 @@ public class ReturnInfo<T> {
     @Override
     public String toString() {
         return "ReturnInfo{" +
-                "status=" + status +
+                "code=" + code +
+                ", msg='" + msg + '\'' +
                 ", obj=" + obj +
                 '}';
     }

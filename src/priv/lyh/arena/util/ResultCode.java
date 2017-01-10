@@ -5,20 +5,21 @@ import java.util.Map;
 
 
 public interface ResultCode {
-    //访问成功结果码 666
-    Map<Integer, String> requestSuccess = new HashMap<Integer, String>() {{
-        put(666, "request Success");
-    }};
-    //登录注册失败结果码：100-200
-    Map<Integer, String> loginFail = new HashMap<Integer, String>() {{
-        put(100, "登录失败");
-    }};
 
-    Map<Integer,String> registerFail=new HashMap<Integer, String>(){{
-        put(110,"注册失败，邮箱已被使用");
-    }};
+    int REQUEST_SUCCESS = 100;
+    String REQUEST_SUCCESS_MSG = "请求成功";
 
-    Map<Integer,String> addUserInfoFail=new HashMap<Integer, String>(){{
-        put(120,"添加用户失败，用户名或手机号已被使用");
-    }};
+    int SEND_FAIL = 101;
+    String SEND_FAIL_MSG = "发送数据有误，请重新输入";
+
+    int LOGIN_FAIL = 102;
+    String LOGIN_FAIL_MSG = "登录失败";
+
+    int REGISTER_FAIL = 103;
+    String REGISTER_FAIL_MSG = "注册失败，邮箱已被使用";
+
+    int ADD_USER_INFO_FAIL = 120;
+    String ADD_USER_INFO_FAIL_MSG = "添加用户失败，用户名或手机号已被使用";
+
+
 }
