@@ -101,7 +101,7 @@ public class Test {
 
     @org.junit.Test
     public void TestDao(){
-
+        ctx=new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
         TestDao testDao= (TestDao) ctx.getBean("lii");
         System.out.println(testDao.findUser("1701000001").toString());
     }
