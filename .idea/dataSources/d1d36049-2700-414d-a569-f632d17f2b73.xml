@@ -19,7 +19,7 @@
     <table id="13" parent="2" name="follow"/>
     <table id="14" parent="2" name="follower"/>
     <table id="15" parent="2" name="friends"/>
-    <table id="16" parent="2" name="history"/>
+    <table id="16" parent="2" name="record"/>
     <table id="17" parent="2" name="state"/>
     <table id="18" parent="2" name="user_info">
       <Comment>用户的基本信息</Comment>

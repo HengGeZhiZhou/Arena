@@ -132,7 +132,7 @@ public class Test {
 
     @org.junit.Test
     public void sendMail() {
-        SendMailUtil sendMailUtil=new SendMailUtil("dsadsd","iota.9star@foxmail.com");
+        SendMailUtil sendMailUtil=new SendMailUtil("heelo","iota.9star@foxmail.com");
         sendMailUtil.run();
     }
 
