@@ -9,7 +9,9 @@ import priv.lyh.arena.entity.UserLogin;
 import priv.lyh.arena.exception.RequestException;
 import priv.lyh.arena.exception.ServiceException;
 import priv.lyh.arena.service.UserInfoService;
+import priv.lyh.arena.util.CreateSafeCode;
 import priv.lyh.arena.util.ReadRequestMessage;
+import priv.lyh.arena.util.SendMailUtil;
 
 
 import javax.annotation.Resource;
@@ -139,5 +141,29 @@ public class UserLoginAction extends BaseAction {
         return "result";
     }
 
+    @SuppressWarnings("unchecked")
+    public String checkEmail() throws RequestException, ServiceException {
+        try {
+            UserLogin userLogin = ReadRequestMessage.read(this.request, this.response, UserLogin.class);
+            if (!userInfoService.checkEmailExistService(userLogin.getEmail())) {
+                String securityCode = CreateSafeCode.getRandCode();
+                SendMailUtil sendMailUtil = new SendMailUtil(securityCode, userLogin.getEmail());
+                sendMailUtil.start();
+                returnInfo.setCode(REQUEST_SUCCESS);
+                returnInfo.setMsg(REQUEST_SUCCESS_MSG);
+                returnInfo.setObj(securityCode);
+            } else {
+                returnInfo.setCode(EMAIL_EXIST);
+                returnInfo.setMsg(EMAIL_EXIST_MSG);
+            }
+        } catch (Exception e) {
+            returnInfo.setCode(SEND_FAIL);
+            returnInfo.setMsg(SEND_FAIL_MSG);
+            throw new RequestException(SEND_FAIL_MSG);
+        }
+        return "result";
+    }
 
 }
+
+

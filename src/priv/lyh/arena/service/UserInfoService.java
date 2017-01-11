@@ -13,6 +13,8 @@ import java.util.List;
 public interface UserInfoService {
         String loginService(UserLogin userLogin) throws ServiceException;  //检查登录  返回id
 
+        boolean checkEmailExistService(String email) throws ServiceException;  //检查邮箱是否存在
+
         String registerService(UserLogin userLogin) throws ServiceException ;  //注册  返回id
 
         String updatePasswordService(UserLogin userLogin) throws ServiceException;//修改密码 返回

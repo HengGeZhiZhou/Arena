@@ -9,7 +9,7 @@ public interface ResultCode {
     String REQUEST_SUCCESS_MSG = "请求成功";
 
     int SEND_FAIL = 101;
-    String SEND_FAIL_MSG = "发送数据有误，请重新输入";
+    String SEND_FAIL_MSG = "请求失败";
 
     int LOGIN_FAIL = 102;
     String LOGIN_FAIL_MSG = "登录失败";
@@ -22,4 +22,7 @@ public interface ResultCode {
 
     int UPDATE_FAIL = 105;
     String UPDATE_FAIL_MSG = "更新失败";
+
+    int EMAIL_EXIST=106;
+    String EMAIL_EXIST_MSG="邮箱已被注册";
 }

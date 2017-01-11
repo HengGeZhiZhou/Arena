@@ -3,6 +3,7 @@ package priv.lyh.arena.util;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.Properties;
 
 public class PropertiesUtil {
@@ -10,8 +11,10 @@ public class PropertiesUtil {
     private static Properties propertiesC = new Properties();
     static {
         try {
-            propertiesA.load(new FileInputStream("Src/mailAccount.properties"));
-            propertiesC.load(new FileInputStream("Src/mailConnect.properties"));
+           URL urlA=ClassLoader.class.getClassLoader().getResource("mailAccount.properties");
+           URL urlC=ClassLoader.class.getClassLoader().getResource("mailAccount.properties");
+            propertiesA.load(new FileInputStream(urlA.getPath()));
+            propertiesC.load(new FileInputStream(urlC.getPath()));
         } catch (IOException e) {
             e.printStackTrace();
         }

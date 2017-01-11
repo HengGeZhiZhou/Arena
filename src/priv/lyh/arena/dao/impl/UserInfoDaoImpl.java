@@ -8,7 +8,6 @@ import priv.lyh.arena.entity.UserInfo;
 import priv.lyh.arena.entity.UserLogin;
 
 
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -16,6 +15,14 @@ import java.util.List;
 @Scope("prototype")
 public class UserInfoDaoImpl extends BaseDaoImpl<UserLogin> implements UserInfoDao {
 
+    @Override
+    @SuppressWarnings("unchecked")
+    public boolean checkEmailExist(String email) {
+        String hql = "from UserLogin where email=?";
+        List<UserLogin> list = (List<UserLogin>) this.getHibernateTemplate().find(hql, email);
+        if (list.get(0).getId() != null) return true;
+        return false;
+    }
 
     @Override
     @SuppressWarnings("unchecked")
@@ -28,12 +35,13 @@ public class UserInfoDaoImpl extends BaseDaoImpl<UserLogin> implements UserInfoD
 
     @Override
     @SuppressWarnings("unchecked")
-    public String getMaxId(){
+    public String getMaxId() {
         String hql = "select max(id) from UserLogin ";
         List<String> list = (List<String>) this.getHibernateTemplate().find(hql);
         if (list != null) return list.get(0);
         return null;
     }
+
 
     @Override
     public void updateTime(Serializable id) {
@@ -49,7 +57,7 @@ public class UserInfoDaoImpl extends BaseDaoImpl<UserLogin> implements UserInfoD
     }
 
     @Override
-    public String updateUserInfo(UserInfo userInfo) throws Exception {
+    public String updateUserInfo(UserInfo userInfo) {
         this.getHibernateTemplate().update(userInfo);
         return userInfo.getId();
     }

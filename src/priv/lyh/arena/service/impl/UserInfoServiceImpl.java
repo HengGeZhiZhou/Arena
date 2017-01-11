@@ -39,6 +39,15 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
+    public boolean checkEmailExistService(String email) throws ServiceException {
+        try {
+            return userInfoDao.checkEmailExist(email);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
     public String registerService(UserLogin userLogin) throws ServiceException {
         try {
             userLogin.setId(CreateNewUserId.getNewUserId(userInfoDao.getMaxId()));
@@ -54,11 +63,11 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public String updatePasswordService(UserLogin userLogin) throws ServiceException {
         try {
-            UserLogin user=userInfoDao.findObjectById(userLogin.getId());
+            UserLogin user = userInfoDao.findObjectById(userLogin.getId());
             user.setPassword(userLogin.getPassword());
             userInfoDao.update(user);
             return user.getId();
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new ServiceException("Update password fail...");
         }
     }

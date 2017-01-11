@@ -12,6 +12,7 @@ import priv.lyh.arena.entity.UserInfo;
 import priv.lyh.arena.entity.UserLogin;
 import priv.lyh.arena.exception.ServiceException;
 import priv.lyh.arena.service.UserInfoService;
+import priv.lyh.arena.util.CreateSafeCode;
 import priv.lyh.arena.util.SendMailUtil;
 import test.dao.TestDao;
 import test.service.TestService;
@@ -29,23 +30,22 @@ public class Test {
     private ClassPathXmlApplicationContext ctx;
 
 
-
     @Resource(name = "userInfoServiceImpl")
     private UserInfoService userInfoService;
 
     @org.junit.Test
     public void testLogin() throws Exception {
-        UserLogin userLogin=new UserLogin();
+        UserLogin userLogin = new UserLogin();
         userLogin.setEmail("lyh");
         userLogin.setPassword("123");
-        Gson gson=new Gson();
+        Gson gson = new Gson();
         System.out.println(gson.toJson(userLogin));
         System.out.println(userInfoService.loginService(userLogin));
     }
 
     @org.junit.Test
-    public void testRegister()  {
-        UserLogin userLogin=new UserLogin();
+    public void testRegister() {
+        UserLogin userLogin = new UserLogin();
         userLogin.setEmail("moy");
         userLogin.setPassword("ssss");
         try {
@@ -56,8 +56,8 @@ public class Test {
     }
 
     @org.junit.Test
-    public void test(){
-       UserInfo  userInfo=new UserInfo();
+    public void test() {
+        UserInfo userInfo = new UserInfo();
         userInfo.setId("1701000003");
         userInfo.setName("流论旁生");
         userInfo.setPortrait("aaa");
@@ -73,27 +73,27 @@ public class Test {
             e.printStackTrace();
         }
     }
+
     @org.junit.Test
-    public  void TestMap(){
-        ReturnInfo returnInfo=new ReturnInfo();
+    public void TestMap() {
+        ReturnInfo returnInfo = new ReturnInfo();
 //        returnInfo.setStatus(ResultCode.loginFail);
         returnInfo.setObj("123123123");
-        Gson gson=new Gson();
-        String a=gson.toJson(returnInfo);
+        Gson gson = new Gson();
+        String a = gson.toJson(returnInfo);
         System.out.println(a);
-        ReturnInfo returnInfo1=gson.fromJson(a,ReturnInfo.class);
+        ReturnInfo returnInfo1 = gson.fromJson(a, ReturnInfo.class);
 //        Map<Integer,String> map=returnInfo1.getStatus();
 //        System.out.println(map.keySet());
 //        System.out.println(map.values());
     }
 
 
-
     @org.junit.Test
-    public void testSpring(){
-        ctx=new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
-        TestServiceImpl ts= (TestServiceImpl) ctx.getBean("testService");
-        TestServiceImpl ts1= (TestServiceImpl) ctx.getBean("testService");
+    public void testSpring() {
+        ctx = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+        TestServiceImpl ts = (TestServiceImpl) ctx.getBean("testService");
+        TestServiceImpl ts1 = (TestServiceImpl) ctx.getBean("testService");
         System.out.println(ts.equals(ts1));
         System.out.println(ts.testDao.equals(ts1.testDao));
         ts1.say();
@@ -101,16 +101,16 @@ public class Test {
     }
 
     @org.junit.Test
-    public void TestDao(){
-        ctx=new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
-        TestDao testDao= (TestDao) ctx.getBean("lii");
+    public void TestDao() {
+        ctx = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+        TestDao testDao = (TestDao) ctx.getBean("lii");
         System.out.println(testDao.findUser("1701000001").toString());
     }
 
     @org.junit.Test
-    public void testLog4j(){
+    public void testLog4j() {
 //        PropertyConfigurator.configure("log4j.properties");
-        Log log= LogFactory.getLog(getClass());
+        Log log = LogFactory.getLog(getClass());
         log.debug("debug 级别日志");
         log.info("info 级别日志");
         log.warn("warn 级别日志");
@@ -119,8 +119,8 @@ public class Test {
     }
 
     @org.junit.Test
-    public void testUpdatePassword(){
-        UserLogin userLogin=new UserLogin();
+    public void testUpdatePassword() {
+        UserLogin userLogin = new UserLogin();
         userLogin.setId("1701000001");
         userLogin.setPassword("luidqsad");
         try {
@@ -131,9 +131,34 @@ public class Test {
     }
 
     @org.junit.Test
-    public void sendMail(){
-        SendMailUtil sendMailUtil=new SendMailUtil();
+    public void sendMail() {
+        SendMailUtil sendMailUtil=new SendMailUtil("dsadsd","iota.9star@foxmail.com");
         sendMailUtil.run();
+    }
+
+    @org.junit.Test
+    public void checkEmailExist() {
+        try {
+            if (!userInfoService.checkEmailExistService("lyh")) {
+                System.out.println("邮箱不存在");
+
+            } else {
+                System.out.println("邮箱已经存在");
+            }
+        } catch (ServiceException e) {
+            e.printStackTrace();
+            System.out.println("不存在");
+        }
+    }
+
+    @org.junit.Test
+    public void testCreateSafeCode() {
+        System.out.println("随机数字为" + CreateSafeCode.getRandCode());
+        System.out.println("随机数字为" + CreateSafeCode.getRandCode());
+        System.out.println("随机数字为" + CreateSafeCode.getRandCode());
+        System.out.println("随机数字为" + CreateSafeCode.getRandCode());
+        System.out.println("随机数字为" + CreateSafeCode.getRandCode());
+        System.out.println("随机数字为" + CreateSafeCode.getRandCode());
     }
 
 }
