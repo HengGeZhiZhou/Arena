@@ -1,12 +1,10 @@
 package priv.lyh.arena.util;
 
-import priv.lyh.arena.tools.Timestamp;
-
 
 public class CreateNewUserId {
     public static String getNewUserId(String id) {   //生成新的id
 
-        String today = Timestamp.getTimestamp();
+        String today = TimestampUtil.getTimestamp();
         if (id == null) {
             id = today + "000001";
             return id;

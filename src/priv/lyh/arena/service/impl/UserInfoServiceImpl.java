@@ -12,6 +12,8 @@ import priv.lyh.arena.exception.ServiceException;
 import priv.lyh.arena.util.*;
 import priv.lyh.arena.service.UserInfoService;
 
+import java.sql.Timestamp;
+
 
 @Service
 @Transactional
@@ -46,6 +48,18 @@ public class UserInfoServiceImpl implements UserInfoService {
             return userLogin.getId();
         } catch (Exception e) {
             throw new ServiceException("Register fail...");
+        }
+    }
+
+    @Override
+    public String updatePasswordService(UserLogin userLogin) throws ServiceException {
+        try {
+            UserLogin user=userInfoDao.findObjectById(userLogin.getId());
+            user.setPassword(userLogin.getPassword());
+            userInfoDao.update(user);
+            return user.getId();
+        }catch (Exception e){
+            throw new ServiceException("Update password fail...");
         }
     }
 

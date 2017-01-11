@@ -57,5 +57,6 @@
     <orderEntry type="library" name="com.google.code.gson:gson:2.8.0" level="project" />
     <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
     <orderEntry type="library" name="org.apache.struts:struts2-json-plugin:2.3.3" level="project" />
+    <orderEntry type="library" name="javax.mail:mail:1.4.5" level="project" />
   </component>
 </module>

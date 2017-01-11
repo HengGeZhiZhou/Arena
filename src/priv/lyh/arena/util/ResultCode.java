@@ -5,7 +5,6 @@ import java.util.Map;
 
 
 public interface ResultCode {
-
     int REQUEST_SUCCESS = 100;
     String REQUEST_SUCCESS_MSG = "请求成功";
 
@@ -18,8 +17,9 @@ public interface ResultCode {
     int REGISTER_FAIL = 103;
     String REGISTER_FAIL_MSG = "注册失败，邮箱已被使用";
 
-    int ADD_USER_INFO_FAIL = 120;
-    String ADD_USER_INFO_FAIL_MSG = "添加用户失败，用户名或手机号已被使用";
+    int ADD_USERINFO_FAIL = 104;
+    String ADD_USERINFO_FAIL_MSG = "添加用户失败，用户名或手机号已被使用";
 
-
+    int UPDATE_FAIL = 105;
+    String UPDATE_FAIL_MSG = "更新失败";
 }

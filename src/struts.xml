@@ -12,12 +12,12 @@
     <!-- 配置拓展名为action -->
     <constant name="struts.action.extention" value="action"/>
     <include file="test/conf/test-struts.xml"/>
-    
+
     <package name="userLogin" namespace="/" extends="json-default,struts-default">
         <action name="user_*" class="userLogin" method="{1}">
-            <exception-mapping exception="priv.lyh.arena.exception.ServiceException" result="register"/>
-            <exception-mapping exception="priv.lyh.arena.exception.RequestException" result="register"/>
-            <result name="register" type="json">
+            <exception-mapping exception="priv.lyh.arena.exception.ServiceException" result="result"/>
+            <exception-mapping exception="priv.lyh.arena.exception.RequestException" result="result"/>
+            <result name="result" type="json">
                 <param name="root">returnInfo</param>
             </result>
         </action>

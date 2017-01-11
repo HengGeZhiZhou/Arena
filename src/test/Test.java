@@ -12,6 +12,7 @@ import priv.lyh.arena.entity.UserInfo;
 import priv.lyh.arena.entity.UserLogin;
 import priv.lyh.arena.exception.ServiceException;
 import priv.lyh.arena.service.UserInfoService;
+import priv.lyh.arena.util.SendMailUtil;
 import test.dao.TestDao;
 import test.service.TestService;
 import priv.lyh.arena.util.ResultCode;
@@ -30,7 +31,7 @@ public class Test {
 
 
     @Resource(name = "userInfoServiceImpl")
-    UserInfoService userInfoService;
+    private UserInfoService userInfoService;
 
     @org.junit.Test
     public void testLogin() throws Exception {
@@ -57,7 +58,7 @@ public class Test {
     @org.junit.Test
     public void test(){
        UserInfo  userInfo=new UserInfo();
-        userInfo.setId("1701000001");
+        userInfo.setId("1701000003");
         userInfo.setName("Á÷ÂÛÅÔÉú");
         userInfo.setPortrait("aaa");
         userInfo.setSex("ÄÐ");
@@ -65,7 +66,7 @@ public class Test {
         userInfo.setHeight("1.80");
         userInfo.setWeight("90");
         userInfo.setProfiles("wwwwwwwwwwwwwwwwww");
-        userInfo.setPhone("13099927777");
+        userInfo.setPhone("1232kksds");
         try {
             System.out.println(userInfoService.updateUserInfoService(userInfo));
         } catch (Exception e) {
@@ -118,9 +119,21 @@ public class Test {
     }
 
     @org.junit.Test
-    public void testGsonUtil(){
-
+    public void testUpdatePassword(){
+        UserLogin userLogin=new UserLogin();
+        userLogin.setId("1701000001");
+        userLogin.setPassword("luidqsad");
+        try {
+            userInfoService.updatePasswordService(userLogin);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
     }
 
+    @org.junit.Test
+    public void sendMail(){
+        SendMailUtil sendMailUtil=new SendMailUtil();
+        sendMailUtil.run();
+    }
 
 }

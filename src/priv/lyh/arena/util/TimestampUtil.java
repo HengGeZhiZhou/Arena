@@ -1,11 +1,11 @@
-package priv.lyh.arena.tools;
+package priv.lyh.arena.util;
 
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public  class Timestamp {
+public  class TimestampUtil {
     public static String getTimestamp(){
         Date date=new Date();
         DateFormat dateFormat=new SimpleDateFormat("yyMM");

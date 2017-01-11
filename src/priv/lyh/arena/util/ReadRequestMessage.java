@@ -10,21 +10,18 @@ import java.io.BufferedReader;
 
 public class ReadRequestMessage {
 
-
+    @SuppressWarnings("unchecked")
     public static <T> T read(HttpServletRequest request, HttpServletResponse response, Class<T> tClass) throws RequestException {
         try {
             response.setContentType("text/html;charset=utf-8");
             response.setCharacterEncoding("UTF-8");
-            StringBuffer json = new StringBuffer();
+            StringBuilder json = new StringBuilder();
             String line;
             BufferedReader reader = request.getReader();
             while ((line = reader.readLine()) != null) {
                 json.append(line);
             }
-//            gson½âÎö
-            System.out.println("jiexi");
-            T t = GsonUtil.GsonToBean(json.toString(), tClass);
-            return t;
+            return GsonUtil.GsonToBean(json.toString(), tClass);
         } catch (Exception p) {
             throw new RequestException("Request fail...");
         }
