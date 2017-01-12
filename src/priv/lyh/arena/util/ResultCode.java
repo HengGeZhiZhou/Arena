@@ -1,8 +1,5 @@
 package priv.lyh.arena.util;
 
-import java.util.HashMap;
-import java.util.Map;
-
 
 public interface ResultCode {
     int REQUEST_SUCCESS = 100;

@@ -5,8 +5,7 @@
 <hibernate-mapping>
 
     <class name="priv.lyh.arena.entity.MobileUser" table="mobile_user" schema="project_db">
-        <id name="muId" column="mu_id"/>
-        <property name="muUId" column="mu_u_id"/>
+        <id name="muUId" column="mu_u_id"/>
         <property name="muLongitud" column="mu_longitud"/>
         <property name="muLatitude" column="mu_latitude"/>
     </class>

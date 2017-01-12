@@ -7,27 +7,21 @@ import org.junit.runner.RunWith;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import priv.lyh.arena.entity.Record;
-import priv.lyh.arena.entity.ReturnInfo;
-import priv.lyh.arena.entity.UserInfo;
-import priv.lyh.arena.entity.UserLogin;
+import priv.lyh.arena.entity.*;
 import priv.lyh.arena.exception.ServiceException;
 import priv.lyh.arena.service.PositionService;
 import priv.lyh.arena.service.RecordService;
 import priv.lyh.arena.service.UserInfoService;
-import priv.lyh.arena.service.impl.PositionServiceImpl;
 import priv.lyh.arena.util.CreateSafeCode;
 import priv.lyh.arena.util.GetPositionUtil;
 import priv.lyh.arena.util.SendMailUtil;
 import test.dao.TestDao;
-import test.service.TestService;
-import priv.lyh.arena.util.ResultCode;
 import test.service.impl.TestServiceImpl;
 
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -202,9 +196,28 @@ public class Test {
 
     @org.junit.Test
     public void testAround(){
-        List<UserInfo> lists=positionService.getAroundPeople(30.67402,103.827121);
+        List<UserInfo> lists= null;
+        try {
+            lists = positionService.getAroundPeople(30.67402,103.827121);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
         for (UserInfo userInfo:lists){
             System.out.println(userInfo.toString());
+        }
+    }
+
+    @org.junit.Test
+    public void testUpdatePosition(){
+        MobileUser mobileUser=new MobileUser();
+//        mobileUser.setMuId(1);
+        mobileUser.setMuUId("1701000003");
+        mobileUser.setMuLatitude(new BigDecimal(13.212313));
+        mobileUser.setMuLongitud(new BigDecimal(29.221231));
+        try {
+            positionService.updatePosition(mobileUser);
+        } catch (ServiceException e) {
+            e.printStackTrace();
         }
     }
 

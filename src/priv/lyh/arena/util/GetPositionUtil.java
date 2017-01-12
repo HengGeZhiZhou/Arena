@@ -28,11 +28,10 @@ public class GetPositionUtil {
 
 
     public static double distance(double centerLon, double centerLat, double targetLon, double targetLat) {
-
         double jl_jd = 102834.74258026089786013677476285;// 每经度单位米;
         double jl_wd = 111712.69150641055729984301412873;// 每纬度单位米;
         double b = Math.abs((centerLat - targetLat) * jl_jd);
         double a = Math.abs((centerLon - targetLon) * jl_wd);
-        return Math.sqrt((a * a + b * b));
+        return Math.ceil(Math.sqrt((a * a + b * b)));
     }
 }

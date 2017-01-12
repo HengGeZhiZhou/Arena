@@ -4,7 +4,6 @@ package priv.lyh.arena.dao.impl;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 import priv.lyh.arena.dao.UserInfoDao;
-import priv.lyh.arena.entity.MobileUser;
 import priv.lyh.arena.entity.UserInfo;
 import priv.lyh.arena.entity.UserLogin;
 
@@ -50,10 +49,6 @@ public class UserInfoDaoImpl extends BaseDaoImpl<UserLogin> implements UserInfoD
         update(userLogin);
     }
 
-    @Override
-    public void addUserPosition(MobileUser mobileUser) {
-        this.getHibernateTemplate().save(mobileUser);
-    }
 
     @Override
     @SuppressWarnings("unchecked")

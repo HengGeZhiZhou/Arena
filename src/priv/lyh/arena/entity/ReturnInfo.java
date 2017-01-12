@@ -4,8 +4,6 @@ package priv.lyh.arena.entity;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import java.util.Map;
-
 
 @Component
 @Scope("prototype")

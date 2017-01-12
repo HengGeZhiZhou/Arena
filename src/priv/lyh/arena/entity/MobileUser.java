@@ -3,34 +3,24 @@ package priv.lyh.arena.entity;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+
 @Entity
 @Table(name = "mobile_user", schema = "project_db")
 public class MobileUser {
-    private int muId;
     private String muUId;
     private BigDecimal muLongitud;
     private BigDecimal muLatitude;
 
-    public MobileUser(String muUId,BigDecimal muLatitude,BigDecimal muLongitud){
-        this.muUId=muUId;
-        this.muLatitude=muLatitude;
+    public MobileUser(String id, BigDecimal muLongitud, BigDecimal muLatitude) {
+        this.muUId=id;
         this.muLongitud=muLongitud;
+        this.muLatitude=muLatitude;
     }
 
     public MobileUser() {
     }
 
     @Id
-    @Column(name = "mu_id")
-    public int getMuId() {
-        return muId;
-    }
-
-    public void setMuId(int muId) {
-        this.muId = muId;
-    }
-
-    @Basic
     @Column(name = "mu_u_id")
     public String getMuUId() {
         return muUId;
@@ -67,7 +57,6 @@ public class MobileUser {
 
         MobileUser that = (MobileUser) o;
 
-        if (muId != that.muId) return false;
         if (muUId != null ? !muUId.equals(that.muUId) : that.muUId != null) return false;
         if (muLongitud != null ? !muLongitud.equals(that.muLongitud) : that.muLongitud != null) return false;
         if (muLatitude != null ? !muLatitude.equals(that.muLatitude) : that.muLatitude != null) return false;
@@ -77,8 +66,7 @@ public class MobileUser {
 
     @Override
     public int hashCode() {
-        int result = muId;
-        result = 31 * result + (muUId != null ? muUId.hashCode() : 0);
+        int result = muUId != null ? muUId.hashCode() : 0;
         result = 31 * result + (muLongitud != null ? muLongitud.hashCode() : 0);
         result = 31 * result + (muLatitude != null ? muLatitude.hashCode() : 0);
         return result;

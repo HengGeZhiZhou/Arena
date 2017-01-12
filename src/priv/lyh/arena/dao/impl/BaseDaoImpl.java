@@ -1,8 +1,6 @@
 package priv.lyh.arena.dao.impl;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
-import org.springframework.context.annotation.Scope;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import priv.lyh.arena.dao.BaseDao;
 

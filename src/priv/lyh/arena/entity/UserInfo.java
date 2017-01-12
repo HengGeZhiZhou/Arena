@@ -17,8 +17,20 @@ public class UserInfo implements Serializable {
     private String weight;
     private String profiles;
     private String phone;
-
+    private int distance;
     private Timestamp addTime;
+
+
+//    ·µ»ØµÄ¾àÀë
+
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
+    }
 
     @Id
     @Column(name = "_id")
@@ -171,6 +183,7 @@ public class UserInfo implements Serializable {
                 ", profiles='" + profiles + '\'' +
                 ", phone='" + phone + '\'' +
                 ", addTime=" + addTime +
+                ",distance="+distance+
                 '}';
     }
 }

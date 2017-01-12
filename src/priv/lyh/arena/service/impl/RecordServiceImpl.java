@@ -1,12 +1,10 @@
 package priv.lyh.arena.service.impl;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import priv.lyh.arena.dao.RecordDao;
-import priv.lyh.arena.entity.PageBean;
 import priv.lyh.arena.entity.Record;
 import priv.lyh.arena.service.RecordService;
 

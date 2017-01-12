@@ -16,10 +16,18 @@ public class PositionDaoImpl extends BaseDaoImpl<MobileUser> implements Position
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<MobileUser> getAroundPeople(Double top,Double left,Double bottom, Double right) {
+    public List<MobileUser> getAroundPeople(Double top, Double left, Double bottom, Double right) {
         DetachedCriteria detachedCriteria=DetachedCriteria.forClass(MobileUser.class);
         detachedCriteria.add(Restrictions.between("muLongitud",new BigDecimal(left),new BigDecimal(right)));
         detachedCriteria.add(Restrictions.between("muLatitude",new BigDecimal(top),new BigDecimal(bottom)));
         return (List<MobileUser>) this.getHibernateTemplate().findByCriteria(detachedCriteria);
+    }
+
+    @Override
+    public void updatePosition(MobileUser mobileUser) {
+        MobileUser mobileUsers=this.getHibernateTemplate().get(MobileUser.class,mobileUser.getMuUId());
+        mobileUsers.setMuLatitude(mobileUser.getMuLatitude());
+        mobileUsers.setMuLongitud(mobileUser.getMuLongitud());
+        update(mobileUsers);
     }
 }
