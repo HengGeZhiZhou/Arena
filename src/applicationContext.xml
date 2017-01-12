@@ -39,7 +39,9 @@
             <list>
                 <value>priv/lyh/arena/entity/UserLogin.hbm.xml</value>
                 <value>priv/lyh/arena/entity/UserInfo.hbm.xml</value>
-                <value>classpath:priv/lyh/arena/entity/Record.hbm.xml</value>
+                <value>priv/lyh/arena/entity/Record.hbm.xml</value>
+                <value>priv/lyh/arena/entity/MobileUser.hbm.xml</value>
+                <value>priv/lyh/arena/entity/MobileUser.hbm.xml</value>
             </list>
         </property>
     </bean>

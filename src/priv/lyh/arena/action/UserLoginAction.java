@@ -100,6 +100,25 @@ public class UserLoginAction extends BaseAction {
         return "result";
     }
 
+    public String getUserInfo() throws RequestException, ServiceException {
+        try {
+            UserLogin userLogin=ReadRequestMessage.read(this.request, this.response, UserLogin.class);
+            UserInfo userInfo=userInfoService.findUserInfo(userLogin.getId());
+            returnInfo.setCode(REQUEST_SUCCESS);
+            returnInfo.setMsg(REQUEST_SUCCESS_MSG);
+            returnInfo.setObj(userInfo);
+        } catch (RequestException e) {
+            returnInfo.setCode(SEND_FAIL);
+            returnInfo.setMsg(SEND_FAIL_MSG);
+            throw new RequestException(SEND_FAIL_MSG);
+        } catch (Exception e) {
+            returnInfo.setCode(FIND_USERINFO_FAIL);
+            returnInfo.setMsg(FIND_USERINFO_FAIL_MSG);
+            throw new ServiceException(FIND_USERINFO_FAIL_MSG);
+        }
+        return "result";
+    }
+
     @SuppressWarnings("unchecked")
     public String addUserInfo() throws RequestException, ServiceException {
         try {

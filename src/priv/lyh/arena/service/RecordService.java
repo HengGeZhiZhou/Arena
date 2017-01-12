@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface RecordService {
     List<Record> findByPage(Integer currPage);
+
+    int getCount();
 }

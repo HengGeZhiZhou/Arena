@@ -25,4 +25,7 @@ public interface ResultCode {
 
     int EMAIL_EXIST=106;
     String EMAIL_EXIST_MSG="邮箱已被注册";
+
+    int FIND_USERINFO_FAIL=107;
+    String FIND_USERINFO_FAIL_MSG="查找用户失败,此用户不存在";
 }

@@ -1,18 +1,21 @@
 package priv.lyh.arena.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import priv.lyh.arena.dao.PositionDao;
 import priv.lyh.arena.dao.UserInfoDao;
 
+import priv.lyh.arena.entity.MobileUser;
 import priv.lyh.arena.entity.UserInfo;
 import priv.lyh.arena.entity.UserLogin;
 import priv.lyh.arena.exception.ServiceException;
 import priv.lyh.arena.util.*;
 import priv.lyh.arena.service.UserInfoService;
 
-import java.sql.Timestamp;
+import javax.annotation.Resource;
+import java.io.Serializable;
+import java.math.BigDecimal;
 
 
 @Service
@@ -21,10 +24,16 @@ import java.sql.Timestamp;
 public class UserInfoServiceImpl implements UserInfoService {
 
     private UserInfoDao userInfoDao;
+    private PositionDao positionDao;
 
-    @Autowired
+   @Resource(name = "userInfoDaoImpl")
     public void setUserInfoDao(UserInfoDao userInfoDao) {
         this.userInfoDao = userInfoDao;
+    }
+
+    @Resource(name = "positionDaoImpl")
+    public void setPositionDao(PositionDao positionDao) {
+        this.positionDao = positionDao;
     }
 
     @Override
@@ -54,6 +63,7 @@ public class UserInfoServiceImpl implements UserInfoService {
             userLogin.setLastTime(new java.sql.Timestamp(System.currentTimeMillis()));
             userLogin.setAddTime(new java.sql.Timestamp(System.currentTimeMillis()));
             userInfoDao.save(userLogin);
+            positionDao.save(new MobileUser(userLogin.getId(),new BigDecimal(0),new BigDecimal(0)));
             return userLogin.getId();
         } catch (Exception e) {
             throw new ServiceException("Register fail...");
@@ -69,6 +79,16 @@ public class UserInfoServiceImpl implements UserInfoService {
             return user.getId();
         } catch (Exception e) {
             throw new ServiceException("Update password fail...");
+        }
+    }
+
+    @Override
+    public UserInfo findUserInfo(Serializable id) throws ServiceException {
+        try{
+            return userInfoDao.findUserInfo(id);
+        }
+        catch (Exception e){
+         throw new ServiceException("No this  User");
         }
     }
 

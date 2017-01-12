@@ -92,4 +92,15 @@ public class Record {
         result = 31 * result + (type != null ? type.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Record{" +
+                "count=" + count +
+                ", id='" + id + '\'' +
+                ", date=" + date +
+                ", position='" + position + '\'' +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }

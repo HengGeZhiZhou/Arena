@@ -7,12 +7,17 @@ import org.junit.runner.RunWith;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import priv.lyh.arena.entity.Record;
 import priv.lyh.arena.entity.ReturnInfo;
 import priv.lyh.arena.entity.UserInfo;
 import priv.lyh.arena.entity.UserLogin;
 import priv.lyh.arena.exception.ServiceException;
+import priv.lyh.arena.service.PositionService;
+import priv.lyh.arena.service.RecordService;
 import priv.lyh.arena.service.UserInfoService;
+import priv.lyh.arena.service.impl.PositionServiceImpl;
 import priv.lyh.arena.util.CreateSafeCode;
+import priv.lyh.arena.util.GetPositionUtil;
 import priv.lyh.arena.util.SendMailUtil;
 import test.dao.TestDao;
 import test.service.TestService;
@@ -21,6 +26,7 @@ import test.service.impl.TestServiceImpl;
 
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Map;
 
 
@@ -33,10 +39,16 @@ public class Test {
     @Resource(name = "userInfoServiceImpl")
     private UserInfoService userInfoService;
 
+    @Resource(name = "recordServiceImpl")
+    private RecordService recordService;
+
+    @Resource(name = "positionServiceImpl")
+    private PositionService positionService;
+
     @org.junit.Test
     public void testLogin() throws Exception {
         UserLogin userLogin = new UserLogin();
-        userLogin.setEmail("lyh");
+        userLogin.setEmail("zl");
         userLogin.setPassword("123");
         Gson gson = new Gson();
         System.out.println(gson.toJson(userLogin));
@@ -46,7 +58,7 @@ public class Test {
     @org.junit.Test
     public void testRegister() {
         UserLogin userLogin = new UserLogin();
-        userLogin.setEmail("moy");
+        userLogin.setEmail("zl");
         userLogin.setPassword("ssss");
         try {
             System.out.println(userInfoService.registerService(userLogin));
@@ -132,7 +144,7 @@ public class Test {
 
     @org.junit.Test
     public void sendMail() {
-        SendMailUtil sendMailUtil=new SendMailUtil("heelo","iota.9star@foxmail.com");
+        SendMailUtil sendMailUtil = new SendMailUtil("heelo", "iota.9star@foxmail.com");
         sendMailUtil.run();
     }
 
@@ -159,6 +171,41 @@ public class Test {
         System.out.println("随机数字为" + CreateSafeCode.getRandCode());
         System.out.println("随机数字为" + CreateSafeCode.getRandCode());
         System.out.println("随机数字为" + CreateSafeCode.getRandCode());
+    }
+
+    @org.junit.Test
+    public void testGetUserInfo() {
+        try {
+            System.out.println(userInfoService.findUserInfo("1701000001").toString());
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @org.junit.Test
+    public void testRecordCount() {
+        System.out.println(recordService.getCount());
+    }
+
+    @org.junit.Test
+    public void testRecord() {
+
+        List<Record> lists = recordService.findByPage(1);
+        for (Record record : lists) {
+            System.out.println(record.toString());
+        }
+    }
+    @org.junit.Test
+    public void testDistance(){
+        System.out.println("相差距离"+GetPositionUtil.distance(103.826878,30.673742,103.827334,30.673978));
+    }
+
+    @org.junit.Test
+    public void testAround(){
+        List<UserInfo> lists=positionService.getAroundPeople(30.67402,103.827121);
+        for (UserInfo userInfo:lists){
+            System.out.println(userInfo.toString());
+        }
     }
 
 }

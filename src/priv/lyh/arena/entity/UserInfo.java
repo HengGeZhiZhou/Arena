@@ -157,4 +157,20 @@ public class UserInfo implements Serializable {
         result = 31 * result + (addTime != null ? addTime.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", portrait='" + portrait + '\'' +
+                ", sex='" + sex + '\'' +
+                ", age='" + age + '\'' +
+                ", height='" + height + '\'' +
+                ", weight='" + weight + '\'' +
+                ", profiles='" + profiles + '\'' +
+                ", phone='" + phone + '\'' +
+                ", addTime=" + addTime +
+                '}';
+    }
 }

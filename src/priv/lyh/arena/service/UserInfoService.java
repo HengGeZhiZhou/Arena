@@ -19,6 +19,8 @@ public interface UserInfoService {
 
         String updatePasswordService(UserLogin userLogin) throws ServiceException;//修改密码 返回
 
+        UserInfo findUserInfo(Serializable id) throws ServiceException; //获取用户信息
+
         String  addUserInfoService(UserInfo userInfo)throws ServiceException  ; //添加详细信息 返回id
 
         String updateUserInfoService(UserInfo userInfo)throws ServiceException;//修改信息 返回id
